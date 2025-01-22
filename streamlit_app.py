@@ -69,16 +69,20 @@ def sauvegarder_dans_sheets(donnees):
     sheet = client.open_by_key(SHEET_ID).sheet1
     
     # Ajouter les données dans l'ordre exact des colonnes
+    # Création de la date au format jour/mois/année
+    date_recommandation = datetime.now().strftime("%d/%m/%Y")
+    
+    # Ajout des données dans l'ordre exact des colonnes du Google Sheet
     sheet.append_row([
-        donnees["date"],
-        donnees["prescripteur"],
-        donnees["email_receveur"],
-        donnees["nom_client"],
-        donnees["telephone_client"],
-        donnees["email_client"],
-        donnees["projet"],
-        donnees["details_projet"],
-        donnees["adresse_projet"]
+        date_recommandation,           # Colonne A : date automatique
+        donnees["prescripteur"],       # Colonne B : nom complet
+        donnees["email_receveur"],     # Colonne C : email receveur
+        donnees["nom_client"],         # Colonne D : nom client
+        donnees["telephone_client"],    # Colonne E : téléphone client
+        donnees["email_client"],       # Colonne F : mail client
+        donnees["projet"],             # Colonne G : projet concerné
+        donnees["details_projet"],     # Colonne H : détails du projet
+        donnees["adresse_projet"]      # Colonne I : adresse du projet
     ])
     
     return "https://docs.google.com/spreadsheets/d/1dkjKAvwlALjo8RHkIm-6PQlAhEkorrA5T9d5CnrMBIA/edit?usp=sharing"
