@@ -34,7 +34,7 @@ with st.form("recommandation_form"):
     date_recommandation = datetime.now().strftime("%d/%m/%Y")
     
     # Informations de l'expéditeur et receveur
-    prescripteur = st.text_input("Prénom & Nom *", key="prescripteur")
+    prescripteur = st.text_input("Votre nom complet *", key="prescripteur")
     email_receveur = st.text_input("E-mail du receveur de la recommandation *", key="email_receveur")
     
     # Informations du client
