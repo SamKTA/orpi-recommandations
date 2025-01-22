@@ -30,9 +30,6 @@ PROJETS = {
 
 # Création du formulaire
 with st.form("recommandation_form"):
-    # Date automatique
-    date_recommandation = datetime.now().strftime("%d/%m/%Y")
-    
     # Informations de l'expéditeur et receveur
     prescripteur = st.text_input("Votre nom complet *", key="prescripteur")
     email_receveur = st.text_input("E-mail du receveur de la recommandation *", key="email_receveur")
@@ -68,36 +65,21 @@ def sauvegarder_dans_sheets(donnees):
     # Ouvrir la feuille de calcul
     sheet = client.open_by_key(SHEET_ID).sheet1
     
-    # Ajouter les données dans l'ordre exact des colonnes
-    # Création de la date au format jour/mois/année
-    date_ajout = datetime.now().strftime("%d/%m/%Y")
+    # Préparation des données dans l'ordre exact des colonnes (A à I)
+    row_data = [
+        datetime.now().strftime("%d/%m/%Y"),  # A: Date
+        donnees["prescripteur"],              # B: Nom complet du prescripteur
+        donnees["email_receveur"],            # C: Mail du receveur
+        donnees["nom_client"],                # D: Nom client
+        donnees["telephone_client"],          # E: Tél client
+        donnees["email_client"],              # F: Mail client
+        donnees["projet"],                    # G: Projet concerné
+        donnees["details_projet"],            # H: Détails du projet
+        donnees["adresse_projet"],            # I: Adresse du projet
+    ]
     
-    # Ajout des données dans l'ordre exact des colonnes du Google Sheet avec des cellules vides pour les colonnes à ne pas remplir
-    sheet.append_row([
-        date_ajout,                  # Date
-        donnees["prescripteur"],     # Nom complet du prescripteur
-        donnees["email_receveur"],   # Mail du receveur
-        donnees["nom_client"],       # Nom client
-        donnees["telephone_client"], # Tél client
-        donnees["email_client"],     # Mail client
-        donnees["projet"],          # Projet concerné
-        donnees["details_projet"],   # Détails du projet
-        donnees["adresse_projet"],   # Adresse du projet
-        "",                         # Prise en charge
-        "",                         # Où en sommes-nous ?
-        "",                         # Date transfert
-        "",                         # CA généré
-        "",                         # Validat° Prime OS
-        "",                         # DATE RÈGLEMENT
-        "",                         # Ajout sens
-        "",                         # Nature du service prescripteur
-        "",                         # CA instantané
-        "",                         # CA/an
-        "",                         # Mois de la reco
-        "",                         # prnom
-        "",                         # mail
-        "",                         # Remarque(s)
-    ])
+    # Utiliser append_row avec le range spécifique pour s'assurer d'écrire dans les colonnes A à I
+    sheet.append_row(row_data, table_range='A:I')
     
     return "https://docs.google.com/spreadsheets/d/1dkjKAvwlALjo8RHkIm-6PQlAhEkorrA5T9d5CnrMBIA/edit?usp=sharing"
 
@@ -152,7 +134,6 @@ if submitted:
     else:
         # Préparer les données
         donnees = {
-            "date": date_recommandation,
             "prescripteur": prescripteur,
             "email_receveur": email_receveur,
             "nom_client": nom_client,
