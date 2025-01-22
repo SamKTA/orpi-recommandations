@@ -70,19 +70,33 @@ def sauvegarder_dans_sheets(donnees):
     
     # Ajouter les données dans l'ordre exact des colonnes
     # Création de la date au format jour/mois/année
-    date_recommandation = datetime.now().strftime("%d/%m/%Y")
+    date_ajout = datetime.now().strftime("%d/%m/%Y")
     
-    # Ajout des données dans l'ordre exact des colonnes du Google Sheet
+    # Ajout des données dans l'ordre exact des colonnes du Google Sheet avec des cellules vides pour les colonnes à ne pas remplir
     sheet.append_row([
-        date_recommandation,           # Colonne A : date automatique
-        donnees["prescripteur"],       # Colonne B : nom complet
-        donnees["email_receveur"],     # Colonne C : email receveur
-        donnees["nom_client"],         # Colonne D : nom client
-        donnees["telephone_client"],    # Colonne E : téléphone client
-        donnees["email_client"],       # Colonne F : mail client
-        donnees["projet"],             # Colonne G : projet concerné
-        donnees["details_projet"],     # Colonne H : détails du projet
-        donnees["adresse_projet"]      # Colonne I : adresse du projet
+        date_ajout,                  # Date
+        donnees["prescripteur"],     # Nom complet du prescripteur
+        donnees["email_receveur"],   # Mail du receveur
+        donnees["nom_client"],       # Nom client
+        donnees["telephone_client"], # Tél client
+        donnees["email_client"],     # Mail client
+        donnees["projet"],          # Projet concerné
+        donnees["details_projet"],   # Détails du projet
+        donnees["adresse_projet"],   # Adresse du projet
+        "",                         # Prise en charge
+        "",                         # Où en sommes-nous ?
+        "",                         # Date transfert
+        "",                         # CA généré
+        "",                         # Validat° Prime OS
+        "",                         # DATE RÈGLEMENT
+        "",                         # Ajout sens
+        "",                         # Nature du service prescripteur
+        "",                         # CA instantané
+        "",                         # CA/an
+        "",                         # Mois de la reco
+        "",                         # prnom
+        "",                         # mail
+        "",                         # Remarque(s)
     ])
     
     return "https://docs.google.com/spreadsheets/d/1dkjKAvwlALjo8RHkIm-6PQlAhEkorrA5T9d5CnrMBIA/edit?usp=sharing"
