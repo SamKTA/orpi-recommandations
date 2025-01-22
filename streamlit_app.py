@@ -105,7 +105,7 @@ def envoyer_email(prescripteur, email_receveur, projet, lien):
     try:
         # Configuration de l'email
         msg = MIMEMultipart()
-        msg['From'] = st.secrets["email"]["username"]
+        msg['From'] = f"Assistant recommandations <{st.secrets['email']['username']}>"
         msg['To'] = email_receveur
         msg['Subject'] = f"Nouvelle recommandation - {projet}"
         
