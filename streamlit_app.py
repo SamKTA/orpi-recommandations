@@ -53,7 +53,7 @@ with st.form("recommandation_form"):
     submitted = st.form_submit_button("Je valide ma recommandation")
 
 def sauvegarder_dans_sheets(donnees):
-    SHEET_ID = "1dkjKAvwlALjo8RHkIm-6PQlAhEkorrA5T9d5CnrMBIA"
+    SHEET_ID = "1FRQEuLlpJbrmaznAkcgJJHwYeHhbAdSE7doDawpXuGE"
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     
@@ -65,7 +65,7 @@ def sauvegarder_dans_sheets(donnees):
     # Ouvrir la feuille de calcul
     sheet = client.open_by_key(SHEET_ID).sheet1
     
-    # Préparation des données dans l'ordre exact des colonnes (A à I)
+    # Préparation des données dans l'ordre exact des colonnes (A à J)
     row_data = [
         datetime.now().strftime("%d/%m/%Y"),  # A: Date
         donnees["prescripteur"],              # B: Nom complet du prescripteur
@@ -74,14 +74,15 @@ def sauvegarder_dans_sheets(donnees):
         donnees["telephone_client"],          # E: Tél client
         donnees["email_client"],              # F: Mail client
         donnees["projet"],                    # G: Projet concerné
-        donnees["details_projet"],            # H: Détails du projet
-        donnees["adresse_projet"],            # I: Adresse du projet
+        "",                                   # H: Conseils patri/Marie (vide)
+        donnees["details_projet"],            # I: Détails du projet
+        donnees["adresse_projet"],            # J: Adresse du projet
     ]
     
-    # Utiliser append_row avec le range spécifique pour s'assurer d'écrire dans les colonnes A à I
-    sheet.append_row(row_data, table_range='A:I')
+    # Utiliser append_row avec le range spécifique pour s'assurer d'écrire dans les colonnes A à J
+    sheet.append_row(row_data, table_range='A:J')
     
-    return "https://docs.google.com/spreadsheets/d/1dkjKAvwlALjo8RHkIm-6PQlAhEkorrA5T9d5CnrMBIA/edit?usp=sharing"
+    return f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit?usp=sharing"
 
 def envoyer_email(prescripteur, email_receveur, projet, lien):
     try:
