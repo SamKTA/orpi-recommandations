@@ -12,7 +12,7 @@ import os
 st.set_page_config(page_title="Recommandations internes", layout="wide")
 
 # Titre et sous-titre
-st.title("Recommandations internes")
+st.title("Recommandations internes Groupe")
 st.subheader("Agence Orpi Panazol, Arcades, La Souterraine et Saint-Yrieix")
 
 # Définition des projets et leurs couleurs associées
